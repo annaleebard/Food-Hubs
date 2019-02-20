@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+
+    <title>VBSCs in USA </title>
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.js'></script>
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+   
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link rel="icon" type="image/ico" href="./images/favicon-16x16.png">
+    <link href='https://api.mapbox.com/mapbox-assembly/v0.21.2/assembly.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Lora|IM Fell English:300,400,700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="leaflet-search-master/src/leaflet-search.css" />
+    
+    <!-- <link rel="stylesheet" href="https://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" /> -->
+    <style>
+ 
+        .info {
+                padding: 6px 8px;
+                font-size: 1em;
+                background: rgba(75,75,75,0.8);
+                box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                border-radius: 5px;
+                text-align: right;   
+                color: whitesmoke;
+            }
+
+        #hi-zoom {
+            color: #f7f4ea;
+            padding: 2px;
+            position: fixed;
+            top: 9px;
+            left: 40px;
+            z-index: 400;
+        }
+
+        #ak-zoom {
+            color: #f7f4ea;
+            padding: 2px;
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            z-index: 400;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: "Work Sans", sans-serif;
+        }
+        
+        h1 {
+            padding: 8px 25px 8px 15px;
+            margin: 0;
+            background: whitesmoke;
+            color: black ;
+            font-weight: 600;
+            font-size: 1.7em;
+            text-align: center;
+        }
+        
+        h2 {
+            margin: 0;
+            padding: 8px 25px 8px 15px;
+            color: #cc0066;
+            font-weight: 700;
+            font-size: 1.5em;
+            text-align: left;
+        }
+        
+        h3 {
+            margin: 0;
+            padding: 2px 2px 2px 2px;
+            color: whitesmoke;
+            font-weight: 600;
+            font-size: 1.2em;
+            text-align: left;
+        }
+        
+        #side-panel p {
+            margin: 8px 0 4px;
+            padding: 0 25px 0 15px;
+            color: whitesmoke;
+            text-align: center;
+            font-size: 1em;
+        }
+        
+        #map {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #title-panel {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 60%%;
+            align: right;
+            height: relative;
+            background: #00a0b0;
+            opacity: .8;
+            /* overflow-x: scroll; */
+            border-radius: 5px;
+            
+        }
+
+        #side-panel {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            width: 95%;
+            height: 20%;
+            background: #00a0b0;
+            opacity: .8;
+            overflow-x: scroll;
+            border-radius: 5px;
+        }
+        
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        /* .column {
+            float: left;
+            padding: 5px;
+            height: 300px; 
+         } */
+
+        /* Clear floats after the columns */
+        /* .row:after {
+            content: "";
+            display: table;
+            clear: both;
+          } */
+
+        /* .container {
+            display: block;
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 0px;
+            margin-top: 8px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+       } */
+
+     /* Hide the browser's default checkbox */
+        /* .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        } */
+
+    /* Create a custom checkbox */
+    /* .checkmark {
+        position: absolute;
+        padding: 5px;
+        top: 0;
+        left: 0;
+        height: 15px;
+        width: 15px;
+        background-color: #eee;
+        border-radius: 5px;
+        margin: 0px
+    } */
+
+    /* On mouse-over, add a grey background color */
+        .container:hover input ~ .checkmark {
+        background-color:gray;
+    }
+
+    /* When the checkbox is checked, add a color background */
+        .container input:checked ~ .checkmark {
+        background-color: #eb6841;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked*/
+        /* .container input:checked ~ .checkmark:after {
+        display: block;
+        } */
+
+     /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid rgb(185, 102, 102);
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    .info {
+        padding: 6px 8px;
+        font-size: 1em;
+        background: rgba(75,75,75,0.8);
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        border-radius: 5px;
+        text-align: right;   
+         color: whitesmoke;
+    }
+    input.MyButton {
+            color: black;
+            font-size: 100%;
+            height: 25px;
+            position: fixed;
+            top: 60px;
+            right: 10px;
+            z-index: 400;
+            background: #whitesmoke;
+            border-radius: 5px;
+            opacity:.8
+        }
+     input.MyButton:hover {
+            color: #23adbf;
+            z-index: 400;
+        }
+                
+                
+    </style>
+</head>
+
+<body>
+    <form>
+        <input class="MyButton" type="button" value="View Food Hub Database" onclick="window.location.href='https://docs.google.com/spreadsheets/d/1H3NkfV60B5VHeXbtxNuJRVGR22Zo1l5vox5kwYHSKxY/edit#gid=0'" />
+        </form>
+    <div id="map"></div>
+
+    <div class = "center" id="title-panel">
+            <h1>Food Hubs by Value Claims and Products</h1>
+        </div>
+
+    <div id='hi-zoom' class='bg-darken25 opacity75-on-hover round'>
+            <img class='extent-button' src='./HI.png' height='26px'>
+       </div>
+
+    <div id='ak-zoom' class='bg-darken25 opacity75-on-hover round'>
+            <img class='extent-button' src='./ak.png' height='26px'>
+       </div>
+
+    
+            <div id="side-panel">
+           
+               <h3>Filter by Value Claims:</h3>
+                <label class="container">
+                        <input type="checkbox"  id="check5" value="accessabil">Accessibility
+                        <span class="checkmark"></span>
+                        </label>
+
+                <label class="containe">
+                        <input type="checkbox"  id="check6" value="affordabil">Affordability
+                        <span class="checkmark"></span>
+                            </label> 
+
+                <label class="container">
+                    <input type="checkbox"  id="check7" value="commerce_e">Local Economic Development
+                    <span class="checkmark"></span>
+                        </label>
+        
+                <label class="container">
+                        <input type="checkbox"  id="check7" value="community">Community
+                        <span class="checkmark"></span>
+                            </label>
+
+                <label class="container">
+                        <input type="checkbox"  id="check7" value="education">Consumer Education
+                        <span class="checkmark"></span>
+                            </label>
+                <label class="container">
+                        <input type="checkbox"  id="check7" value="education">Farmer Education
+                        <span class="checkmark"></span>
+                                </label>
+
+                <label class="container">
+                    <input type="checkbox"  id="check7" value="fresh">Fresh
+                    <span class="checkmark"></span>
+                            </label>   
+
+                <label class="container">
+                        <input type="checkbox"  id="check7" value="health_nut">Health and Nutrition
+                        <span class="checkmark"></span>
+                                </label>
+
+                <label class="container">
+                        <input type="checkbox"  id="check7" value="humane_an">Humane:animals
+                        <span class="checkmark"></span>
+                                </label>
+
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="organic">Organic
+                    <span class="checkmark"></span>
+                            </label>
+
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="sustainabl">Sustainability
+                    <span class="checkmark"></span>
+                            </label>
+
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="transparen">Transparency
+                    <span class="checkmark"></span>
+                            </label>
+
+                            <label>
+
+    <h3>Filter by Products:</h3>
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="eggs">Eggs
+                    <span class="checkmark"></span>
+                            </label>
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="meat">Meat
+                    <span class="checkmark"></span>
+                            </label>
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="dairy">Dairy
+                    <span class="checkmark"></span>
+                            </label>
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="seafood">Seafood
+                    <span class="checkmark"></span>
+                            </label>
+
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="preserves">Preserves/honey
+                    <span class="checkmark"></span>
+                            </label>
+            
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="value_adde">Value-added/dry-goods
+                    <span class="checkmark"></span>
+                            </label>
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="produce">Produce
+                    <span class="checkmark"></span>
+                            </label>
+            <label class="container">
+                    <input type="checkbox"  id="check7" value="eggs">Eggs
+                    <span class="checkmark"></span>
+                            </label>
+      </div>
+      
+    </div>
+   
+    
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    <script src="leaflet-search-master/src/leaflet-search.js"></script>
+    
+    
+    <script>
+
+        
+        var options = {
+            center: [37.8, -93],
+            zoom: 4,
+            zoomControl: true
+        }
+        var map = L.map('map', options);
+
+        map.addControl( new L.Control.Search({
+            url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
+            jsonpParam: 'json_callback',
+            propertyName: 'display_name',
+            propertyLoc: ['lat','lon'],
+            collapsed: false,
+            autoType: false,
+            minLength: 2,
+            zoom: 9,
+            position: "topleft"
+        }) );
+
+         var Esri_WorldTerrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',  {
+                 attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS',
+                 maxZoom: 13
+                      }).addTo(map);
+
+                      
+
+         $.getJSON('./FoodHubsGeocode2019.geojson', function (data) {
+             console.log(data); // you have access to the geojson data here!
+            
+        var vbscs = L.geoJson(data, {
+                 pointToLayer: function (feature, latlng) {
+                     return L.circleMarker(latlng, {
+                         color: '#05386b',
+                         fillOpacity: .8,
+                         radius: feature.properties.service_ar*2.5
+                     })
+                 },
+                
+                 onEachFeature: function (feature, layer) {
+
+                     var popup = '<b>City: </b>' + feature.properties.city + '<br><b>Business Name: </b>' + feature.properties.business_n + '<br><b>Website: </b><a href="' + feature.properties.business_w + '">' + feature.properties.business_w + '</a>'
+
+                     layer.bindPopup(popup);
+                 }
+             }).addTo(map); 
+
+            var currentChecked = [];
+            $('input').on('change', function () {
+
+                var val = $(this).val();
+
+                if ($(this).attr('checked')) {
+                    currentChecked.push(val);
+                    filterSelection(currentChecked);
+                } else {
+
+                    var i = currentChecked.indexOf(val);
+                    if (val != 1) {
+                        currentChecked.splice(i, 1);
+                    }
+                    filterSelection(currentChecked);
+                }
+
+            });
+
+
+            var removedLayers = L.layerGroup();
+
+            function filterSelection(vals) {
+
+                // first add any layers from the removed layers
+                // and clear the removedLayers
+                removedLayers.eachLayer(function (layer) {
+
+                    map.addLayer(layer);
+                    removedLayers.removeLayer(layer);
+
+                });
+                // then loop through our currently displayed properties
+                // add them to the removedLayers group and remove from map
+
+                for (var i = 0; i < vals.length; i++) {
+
+                    vbscs.eachLayer(function (layer) {
+
+
+                        if (layer.feature.properties[vals[i]] == false) {
+
+                            removedLayers.addLayer(layer);
+                            map.removeLayer(layer);
+
+                        }
+
+                    });
+
+                }
+
+            }
+
+        });
+
+        // HI zoom button
+    var hiZoom = document.getElementById('hi-zoom');
+
+    hiZoom.onclick = function () {
+        map.setView([20, -157.8], 7);
+    }
+
+    // AK zoom button
+    var akZoom = document.getElementById('ak-zoom');
+
+    akZoom.onclick = function () {
+        map.setView([61.397514, -157.049236], 4);
+    }
+
+    
+    
+
+    //search
+
+    </script>
+   
+</body>
+
+
+</html>
