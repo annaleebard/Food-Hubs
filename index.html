@@ -18,6 +18,10 @@
     crossorigin=""></script>
 
     <link rel="stylesheet" href="leaflet-search-master/src/leaflet-search.css" />
+    <script src="leaflet-search-master/src/leaflet-search.js"></script>
+    <!-- <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
 
     <style>
         .info {
@@ -27,6 +31,10 @@
             background: rgba(255,255,255,0.8);
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
+            position: fixed;
+            bottom: 160px;
+            left: 15px;
+            
         }
 
         .info h4 {
@@ -39,7 +47,7 @@
             padding: 2px;
             position: fixed;
             top: 9px;
-            left: 40px;
+            left: 45px;
             z-index: 400;
         }
 
@@ -48,7 +56,7 @@
             padding: 2px;
             position: fixed;
             top: 40px;
-            left: 40px;
+            left: 45px;
             z-index: 400;
         }
 
@@ -241,7 +249,7 @@
             font-size: 100%;
             height: 25px;
             position: fixed;
-            top: 60px;
+            top: 70px;
             right: 10px;
             z-index: 400;
             background: #whitesmoke;
@@ -378,10 +386,6 @@
       </div>
       
     </div>
-   
-    
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
-    <script src="leaflet-search-master/src/leaflet-search.js"></script>
     
     
     <script>
@@ -466,9 +470,9 @@
 
                     // method that we will use to update the control based on feature properties passed
                     info.update = function (props) {
-                        this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
+                        this._div.innerHTML = '<h4>Name:</h4>' +  (props ?
                             '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
-                            : 'Hover over a state');
+                            : 'Hover over feature');
                     };
 
         info.addTo(map);
