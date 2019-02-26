@@ -6,31 +6,26 @@
 
     <title>VBSCs in USA </title>
 
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-    <script src='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.js'></script>
-
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-   
+
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <link rel="icon" type="image/ico" href="./images/favicon-16x16.png">
-    <link href='https://api.mapbox.com/mapbox-assembly/v0.21.2/assembly.min.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css?family=Lora|IM Fell English:300,400,700" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <link rel="stylesheet" href="leaflet-search-master/src/leaflet-search.css" />
-    
-    <!-- <link rel="stylesheet" href="https://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" /> -->
+
     <style>
- 
-        .info {
-                padding: 6px 8px;
-                font-size: 1em;
-                background: rgba(75,75,75,0.8);
-                box-shadow: 0 0 15px rgba(0,0,0,0.2);
-                border-radius: 5px;
-                text-align: right;   
-                color: whitesmoke;
-            }
+ .info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
 
         #hi-zoom {
             color: #f7f4ea;
@@ -426,6 +421,7 @@
 
                      layer.bindPopup(popup);
                  }
+                 
              }).addTo(map); 
 
             var currentChecked = [];
@@ -450,8 +446,24 @@
 
             var removedLayers = L.layerGroup();
 
-            function filterSelection(vals) {
+            var info = L.control();
 
+                    info.onAdd = function (map) {
+                        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+                        this.update();
+                        return this._div;
+                    };
+
+                    // method that we will use to update the control based on feature properties passed
+                    info.update = function (props) {
+                        this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
+                            '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
+                            : 'Hover over a state');
+                    };
+
+        info.addTo(map);
+
+            function filterSelection(vals) {
                 // first add any layers from the removed layers
                 // and clear the removedLayers
                 removedLayers.eachLayer(function (layer) {
