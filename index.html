@@ -121,7 +121,7 @@
 
         #side-panel {
             position: absolute;
-            padding: 5px;
+            padding: 10px;
             bottom:2px;
             left: 0%;
             height: 110px;
@@ -189,17 +189,27 @@
             background: #23adbf;
             z-index: 400;
         }
-       
+
+        /* header {
+            background-color: #666;
+            padding: 5px;
+            text-align: center;
+            font-size: 14px;
+            color: white;
+            z-index: 7;
+            }
+        */
                 
     </style>
 </head>
 
 <body>
+        <div id='title-panel'>
+                <h1>Food Hubs by Value Claims and Products</h1>
+        </div>
     
     <div id="map"></div>
-
-    <div class = "center" id="title-panel">
-            <h1>Food Hubs by Value Claims and Products</h1>
+            
 
             <div id='hi-zoom' class='bg-darken25 opacity75-on-hover round'>
                     <img class='extent-button' src='./HiZoom.png' height='20px'>
@@ -214,7 +224,6 @@
                </div>
 
                
-        </div>
 
     
         <form>
@@ -383,9 +392,9 @@
                  
                  onEachFeature: function (feature, layer) {
 
-                     var popup = '<b>City: </b>' + feature.properties.city + '<br><b>Business Name: </b>' + feature.properties.business_n + '<br><b>Website: </b><a href="' + feature.properties.business_w + '">' + feature.properties.business_w + '</a>'
+                     var popup = '  <b>Business Name: </b>' + feature.properties.business_n + '<br><b>Location: </b>' + feature.properties.city + ', '+ feature.properties.state + '<br><b>Website: </b><a href="' + feature.properties.business_w + '">' + feature.properties.business_w + '</a>' + '<br><b>Description: </b>' + feature.properties.descriptio
 
-                     layer.bindTooltip(popup);
+                     layer.bindPopup(popup);
                  }
 
                  
@@ -395,8 +404,8 @@
              vbscs.eachLayer(function(layer) {
                     layer.on('mouseover', function(e) {
                         e.target.setStyle({
-                            color: 'yellow',
-                            fillColor: 'yellow'
+                            color: '#b96666',
+                            fillColor: '#b96666'
                         });
                     });
                     layer.on('mouseout', function(e) {
