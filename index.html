@@ -416,15 +416,29 @@
     
     <script>
 
-        
-        var options = {
-            center: [37.8, -93],
+        var map = new L.Map('map', {
+            center: [35, -98],
             zoom: 4,
-            zoomControl: false
-        }
-        var map = L.map('map', options);
+            zoomControl: false,
+            });
 
-        map.addControl( new L.Control.Search({
+        
+
+         var Esri_WorldTerrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',  {
+                 attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS',
+                 maxZoom: 13
+                      }).addTo(map);
+
+                        var southWest = L.latLng(-1, -190),
+                            northEast = L.latLng(74, -45);
+                            var bounds = L.latLngBounds(southWest, northEast);
+
+                            map.setMaxBounds(bounds);
+                            map.on('drag', function() {
+                                map.panInsideBounds(bounds, { animate: false });
+                            });
+
+          map.addControl( new L.Control.Search({
             url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
             jsonpParam: 'json_callback',
             propertyName: 'display_name',
@@ -434,14 +448,7 @@
             minLength: 2,
             zoom: 9,
             position: "topleft"
-        }) );
-
-         var Esri_WorldTerrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',  {
-                 attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS',
-                 maxZoom: 13
-                      }).addTo(map);
-
-                      
+        }) );            
 
          $.getJSON('./FoodHubsGeocode2019.geojson', function (data) {
              console.log(data); // you have access to the geojson data here!
@@ -501,7 +508,7 @@
             //                 : 'Hover over feature');
             //         };
 
-        info.addTo(map);
+        // info.addTo(map);
 
             function filterSelection(vals) {
                 // first add any layers from the removed layers
@@ -554,7 +561,7 @@
     var USAZoom = document.getElementById('USA-zoom');
 
     USAZoom.onclick = function () {
-        map.setView([37.8, -93], 4);
+        map.setView([35, -98], 4);
     }
 
 
