@@ -442,9 +442,11 @@
             url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
             jsonpParam: 'json_callback',
             propertyName: 'display_name',
+            delayType: 1,
             propertyLoc: ['lat','lon'],
             collapsed: false,
-            autoType: false,
+            autoType: true,
+            autoResize:true,
             minLength: 2,
             zoom: 9,
             position: "topleft"
