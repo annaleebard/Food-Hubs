@@ -446,15 +446,19 @@
             propertyLoc: ['lat','lon'],
             collapsed: false,
             autoType: true,
-            autoResize:true,
+            autoResize: true,
             minLength: 2,
-            zoom: 9,
-            position: "topleft"
+            hideMarkerOnCollapse: true,
+            zoom: 6,
+            position: "topleft",
         }) );            
+
 
          $.getJSON('./FoodHubsGeocode2019.geojson', function (data) {
              console.log(data); // you have access to the geojson data here!
-            
+           
+             
+
         var vbscs = L.geoJson(data, {
                  pointToLayer: function (feature, latlng) {
                      return L.circleMarker(latlng, {
@@ -463,17 +467,34 @@
                          radius: feature.properties.service_ar*2.5
                      })
                  },
-                
+                 
                  onEachFeature: function (feature, layer) {
 
                      var popup = '<b>City: </b>' + feature.properties.city + '<br><b>Business Name: </b>' + feature.properties.business_n + '<br><b>Website: </b><a href="' + feature.properties.business_w + '">' + feature.properties.business_w + '</a>'
 
                      layer.bindTooltip(popup);
                  }
+
+                 
                  
              }).addTo(map); 
 
-            var currentChecked = [];
+             vbscs.eachLayer(function(layer) {
+                    layer.on('mouseover', function(e) {
+                        e.target.setStyle({
+                            color: 'yellow',
+                            fillColor: 'yellow'
+                        });
+                    });
+                    layer.on('mouseout', function(e) {
+                        e.target.setStyle({
+                            color: '#05386b',
+                            fillColor: '#05386b'
+                        });
+                    });
+                });
+
+      var currentChecked = [];
             $('input').on('change', function () {
 
                 var val = $(this).val();
@@ -493,24 +514,6 @@
 
 
             var removedLayers = L.layerGroup();
-            
-            
-            // var info = L.control();
-
-            //         info.onAdd = function (map) {
-            //             this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-            //             this.update();
-            //             return this._div;
-            //         };
-
-            //         // method that we will use to update the control based on feature properties passed
-            //         info.update = function (props) {
-            //             this._div.innerHTML = '<h4>Name:</h4>' +  (props ?
-            //                 '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
-            //                 : 'Hover over feature');
-            //         };
-
-        // info.addTo(map);
 
             function filterSelection(vals) {
                 // first add any layers from the removed layers
@@ -542,7 +545,6 @@
 
             }
             
-
         });
 
         // HI zoom button
