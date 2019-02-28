@@ -31,20 +31,6 @@
 
     <style>
 
-        /* .info {
-            padding: 6px 8px;
-            font: 14px/16px Arial, Helvetica, sans-serif;
-            background: white;
-            background: rgba(255,255,255,0.8);
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-            border-radius: 5px;
-            position: fixed;
-            bottom: 160px;
-            left: 15px;
-            z-index: 500;
-            
-        } */
-
         .info h4 {
             margin: 0 0 5px;
             color: #777;
@@ -112,15 +98,6 @@
             text-align: left;
         }
         
-        /* #side-panel p {
-            margin: 8px 0 4px;
-            padding: 0 25px 0 15px;
-            color: whitesmoke;
-            text-align: center;
-            font-size: 1em;
-            
-        } */
-        
         #map {
             position: absolute;
             bottom: 0px;
@@ -144,10 +121,10 @@
 
         #side-panel {
             position: absolute;
-            padding: 10px;
+            padding: 5px;
             bottom:2px;
             left: 0%;
-            height: 100px;
+            height: 110px;
             bottom: 15px;
             background: #113968;
             opacity: .9;
@@ -166,78 +143,22 @@
             color: #001323;
         }
 
-        /* Create two equal columns that floats next to each other */
-        /* .column {
-            float: left;
-            padding: 5px;
-            height: 300px; 
-         } */
-
-        /* Clear floats after the columns */
-        /* .row:after {
-            content: "";
-            display: table;
-            clear: both;
-          } */
-
-        /* .container {
-            display: block;
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 0px;
-            margin-top: 8px;
-            margin-left: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-       } */
-
-     /* Hide the browser's default checkbox */
-        /* .container input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
-        } */
-
-    /* Create a custom checkbox */
-    /* .checkmark {
-        position: absolute;
-        padding: 5px;
-        top: 0;
-        left: 0;
-        height: 15px;
-        width: 15px;
-        background-color: #eee;
-        border-radius: 5px;
-        margin: 0px
-    } */
-
-    /* On mouse-over, add a grey background color */
+        /* On mouse-over, add a grey background color */
         .container:hover input ~ .checkmark {
         background-color:gray;
     }
 
-    /* When the checkbox is checked, add a color background */
+        /* When the checkbox is checked, add a color background */
         .container input:checked ~ .checkmark {
         background-color: #eb6841;
     }
 
-    /* Create the checkmark/indicator (hidden when not checked) */
+         /* Create the checkmark/indicator (hidden when not checked) */
         .checkmark:after {
         content: "";
         position: absolute;
         display: none;
     }
-
-    /* Show the checkmark when checked*/
-        /* .container input:checked ~ .checkmark:after {
-        display: block;
-        } */
 
      /* Style the checkmark/indicator */
     .container .checkmark:after {
@@ -251,15 +172,7 @@
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
-    /* .info {
-        padding: 6px 8px;
-        font-size: 1em;
-        background: rgba(75,75,75,0.8);
-        box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        border-radius: 5px;
-        text-align: right;   
-         color: whitesmoke;
-    } */
+
     input.MyButton {
             color: black;
             font-size: 100%;
@@ -439,19 +352,19 @@
                             });
 
           map.addControl( new L.Control.Search({
-            url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
-            jsonpParam: 'json_callback',
-            propertyName: 'display_name',
-            delayType: 1,
-            propertyLoc: ['lat','lon'],
-            collapsed: false,
-            autoType: true,
-            autoResize: true,
-            minLength: 2,
-            hideMarkerOnCollapse: true,
-            zoom: 6,
-            position: "topleft",
-        }) );            
+                url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
+                jsonpParam: 'json_callback',
+                propertyName: 'display_name',
+                delayType: 1,
+                propertyLoc: ['lat','lon'],
+                collapsed: false,
+                autoType: true,
+                autoResize: true,
+                minLength: 2,
+                hideMarkerOnCollapse: true,
+                zoom: 6,
+                position: "topleft",
+            }) );            
 
 
          $.getJSON('./FoodHubsGeocode2019.geojson', function (data) {
@@ -567,12 +480,6 @@
     USAZoom.onclick = function () {
         map.setView([35, -98], 4);
     }
-
-
-    
-    
-
-    //search
 
     </script>
    
