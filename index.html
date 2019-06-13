@@ -376,7 +376,7 @@
             }) );            
 
 
-         $.getJSON('./FoodHubsGeocode2019.geojson', function (data) {
+         $.getJSON('./FoodHubsFix.geojson', function (data) {
              console.log(data); // you have access to the geojson data here!
            
              
@@ -392,7 +392,7 @@
                  
                  onEachFeature: function (feature, layer) {
 
-                     var popup = '  <b>Business Name: </b>' + feature.properties.business_n + '<br><b>Location: </b>' + feature.properties.city + ', '+ feature.properties.state + '<br><b>Website: </b><a href="' + feature.properties.business_w + '">' + feature.properties.business_w + '</a>' + '<br><b>Description: </b>' + feature.properties.descriptio
+                     var popup = '  <b>Business Name: </b>' + feature.properties.business_n + '<br><b>Location: </b>' + feature.properties.city + ', '+ feature.properties.state + '<br><b>Website: </b><a href="' + feature.properties.business_w + '">' + feature.properties.business_w + '</a>'
 
                      layer.bindPopup(popup);
                  }
